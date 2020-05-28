@@ -42,8 +42,8 @@
                 Confirm Password
                 <input type="password" required>
             </label>
-            <button type="submit" class="sign-up-button">Sign Up</button>
-            <button type="button" class="google-button">Connect With Google</button>
+            <button type="submit" class="auth-button">Sign Up</button>
+            <button type="button">Connect With Google</button>
         </form>
     {/if}
 </div>
