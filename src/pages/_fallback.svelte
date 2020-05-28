@@ -1,24 +1,30 @@
 <script>
-    import { url } from '@sveltech/routify'
+  import { goto } from "@sveltech/routify";
 </script>
 
+<div class="fallback-div">
+  <h1 on:click={() => $goto("/")}>ProblemX</h1>
+  <h2>Woah, looks like you've lost path mate</h2>
+  <p>Try finding/creating some problems</p>
+</div>
+
 <style>
-  .huge {
-    font-size: 12rem;
-  }
-  .e404 {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+  .fallback-div {
     text-align: center;
+    font-size: 25px;
+    color: #fff;
+  }
+
+  h1 {
+    cursor: pointer;
+    transition: ease-in 300ms;
+  }
+
+  h1:hover {
+    font-size: 55px;
+  }
+
+  h1:active {
+    font-size: 52px;
   }
 </style>
-
-<div class="e404">
-  <div class="huge">404</div>
-  <div class="big">Page not found. 
-  <!-- link to the parent folder of _fallback.svelte -->
-  <a href={$url('../')}>Go back</a>
-  </div>
-</div>
