@@ -1,16 +1,19 @@
 <script>
+    import { goto } from "@sveltech/routify";
+    import { fade } from "svelte/transition";
+
     let signInClicked = false;
     const signUp = () => {}
 </script>
 
 
 <div>
-    <h1>ProblemX</h1>
+    <h1 on:click={() => $goto("/")}>ProblemX</h1>
     <h2>Authentication</h2>
     <button type="button" class:active={!signInClicked} on:click={() => signInClicked = false}>Sign Up</button>
     <button type="button" class:active={signInClicked} on:click={() => signInClicked = true}>Sign In</button>
     {#if signInClicked}
-        <form>
+        <form transition:fade={{duration: 800}}>
             <h2>Sign In</h2>
             <label>
                 Email
@@ -24,7 +27,7 @@
             <button type="button">Connect With Google</button>
         </form>
     {:else}
-        <form on:submit={signUp}>
+        <form on:submit={signUp} transition:fade={{duration: 800}}>
             <h2>Sign Up</h2>
             <label>
                 Username
@@ -53,6 +56,19 @@
         text-align: center;
         color: #fff;
         font-size: 20px;
+    }
+
+    h1 {
+        cursor: pointer;
+        transition: ease-in 300ms;
+    }
+
+    h1:hover {
+        font-size: 45px;
+    }
+
+    h1:active {
+        font-size: 42px;
     }
 
     form {
