@@ -1,7 +1,7 @@
 <div>
     <h1>ProblemX</h1>
     <nav>
-        <a href="">Authentication</a>
+        <a href="/auth">Authentication</a>
         <a href="">Create a new problem</a>
     </nav>
     <div class="typewriter">

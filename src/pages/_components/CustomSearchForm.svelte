@@ -8,6 +8,7 @@
         Search Problems:
         <input type="text" bind:value={search}>
     </label>
+    <button type="submit">Search</button>
 </form>
 
 <style>
@@ -24,5 +25,27 @@
 
     input:focus {
         outline: none;
+    }
+
+    button {
+        cursor: pointer;
+        width: 30%;
+        background-color: #7289DA;
+        color: #fff;
+        transition: ease-in 300ms;
+    }
+
+    button:hover {
+        font-size: 25px;
+    }
+
+    button:active {
+        font-size: 22px;
+    }
+
+    @media screen and (min-width: 760px) {
+        input, button {
+            width: 17%;
+        }
     }
 </style>

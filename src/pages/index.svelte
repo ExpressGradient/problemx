@@ -1,6 +1,6 @@
 <script>
     import Appbar from "./_components/Appbar.svelte";
-    import CustomInput from "./_components/CustomInput.svelte";
+    import CustomSearchForm from "./_components/CustomSearchForm.svelte";
 </script>
 
 <svelte:head>
@@ -8,4 +8,4 @@
 </svelte:head>
 
 <Appbar />
-<CustomInput />
+<CustomSearchForm />
