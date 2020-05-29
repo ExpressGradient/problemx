@@ -6,7 +6,7 @@
 <form on:submit|preventDefault={searchProblem}>
     <label>
         Search Problems:
-        <input type="text" bind:value={search}>
+        <input type="text" bind:value={search} required>
     </label>
     <button type="submit">Search</button>
 </form>
