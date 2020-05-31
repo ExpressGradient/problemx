@@ -21,7 +21,7 @@
         {:else}
             <a href={$url("../profile/:profile", {profile: firebaseAuth.currentUser.email})}>Profile</a>
         {/if}
-        <a href="/">Create a new problem</a>
+        <a href="/create_problem">Create a new problem</a>
         <a href="/docs">Docs</a>
     </nav>
     <div class="typewriter">

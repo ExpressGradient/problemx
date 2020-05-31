@@ -49,4 +49,6 @@ export const createUserRecord = async (firebaseUser, additionalUserInfo) => {
     }
 }
 
+//TODO create a createProblem() for firestore
+
 export default firebase;

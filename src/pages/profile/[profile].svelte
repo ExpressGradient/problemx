@@ -19,6 +19,7 @@
     {#if userData !== null}
         <h4>Username: {userData.displayName}</h4>
         <h4>Email: {userData.email}</h4>
+        <button on:click={signOut}>Sign Out</button>
     {/if}
 </div>
 
@@ -26,7 +27,7 @@
     div {
         text-align: center;
         color: #fff;
-        font-size: 25px;
+        font-size: 20px;
     }
 
     h1 {
@@ -44,16 +45,16 @@
         font-size: 52px;
     }
 
-    .title {
+    button {
         transition: ease-in 300ms;
         cursor: pointer;
     }
 
-    .title:hover {
-        font-size: 55px;
+    button:hover {
+        font-size: 25px;
     }
 
-    .title:active {
-        font-size: 52px;
+    button:active {
+        font-size: 22px;
     }
 </style>
