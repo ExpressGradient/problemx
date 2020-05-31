@@ -2,5 +2,5 @@
 /dist/
 .DS_Store
 **/.history
-/.idea
+.idea/
 .npmignore

@@ -1,8 +1,28 @@
+<script>
+    import { firebaseAuth } from "../_firebase_utils";
+    import { url } from "@sveltech/routify";
+
+    let currentUser = null;
+
+    firebaseAuth.onAuthStateChanged((firebaseUser) => {
+        if(firebaseUser !== null) {
+            currentUser = firebaseUser;
+        } else {
+            currentUser = null;
+        }
+    });
+</script>
+
 <div>
     <h1>ProblemX</h1>
     <nav>
-        <a href="/auth">Authentication</a>
-        <a href="">Create a new problem</a>
+        {#if currentUser === null}
+            <a href={$url("../auth")}>Authentication</a>
+        {:else}
+            <a href={$url("../profile/:profile", {profile: firebaseAuth.currentUser.displayName})}>Profile</a>
+        {/if}
+        <a href="/">Create a new problem</a>
+        <a href="/docs">Docs</a>
     </nav>
     <div class="typewriter">
         <p>A website full of problems ...</p>

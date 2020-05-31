@@ -1,7 +1,7 @@
 <script>
     import { goto } from "@sveltech/routify";
     import { fade } from "svelte/transition";
-    import { firebaseAuth, provider } from "./_firebase_utils";
+    import { firebaseAuth, provider, createUserRecord } from "./_firebase_utils";
 
     let signInClicked = false;
 
@@ -14,19 +14,30 @@
     let signInPassword = "";
 
     const googleConnect = () => {
-        firebaseAuth.signInWithPopup(provider);
+        firebaseAuth.signInWithPopup(provider).then((result) => {
+            createUserRecord(result.user);
+            window.alert("Signing in...");
+            $goto("/");
+        }).catch(error => window.alert(error.message));
     }
 
     const signUp = () => {
         if(signUpPassword === signUpConfirmPassword) {
-            firebaseAuth.createUserWithEmailAndPassword(signUpEmail, signUpPassword);
+            firebaseAuth.createUserWithEmailAndPassword(signUpEmail, signUpPassword).then((result) => {
+                createUserRecord(result.user, signUpUsername);
+                window.alert("ProblemX account created");
+                $goto("/");
+            });
         } else {
             window.alert("Passwords do not match");
         }
     }
 
     const signIn = () => {
-        firebaseAuth.signInWithEmailAndPassword(signInEmail, signInPassword);
+        firebaseAuth.signInWithEmailAndPassword(signInEmail, signInPassword).then((result) => {
+            window.alert("ProblemX account created");
+            $goto("/");
+        }).catch(error => console.log(error.message));
     }
 </script>
 
@@ -51,7 +62,7 @@
             <button type="button" on:click={googleConnect}>Connect With Google</button>
         </form>
     {:else}
-        <form on:submit={signUp} transition:fade={{duration: 800}}>
+        <form on:submit|preventDefault={signUp} transition:fade={{duration: 800}}>
             <h2>Sign Up</h2>
             <label>
                 Username
@@ -79,7 +90,7 @@
     div {
         text-align: center;
         color: #fff;
-        font-size: 20px;
+        font-size: 25px;
     }
 
     h1 {
@@ -88,11 +99,11 @@
     }
 
     h1:hover {
-        font-size: 45px;
+        font-size: 55px;
     }
 
     h1:active {
-        font-size: 42px;
+        font-size: 52px;
     }
 
     form {
