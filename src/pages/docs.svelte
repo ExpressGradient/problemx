@@ -49,7 +49,7 @@
         font-size: 25px;
         text-align: center;
         color: #fff;
-        margin: 10px;
+        margin: 15px;
     }
 
     .content {
@@ -91,7 +91,7 @@
     @media screen and (min-width: 760px) {
         .docs {
             width: 60%;
-            margin: 0 auto;
+            margin: 20px auto;
         }
     }
 </style>

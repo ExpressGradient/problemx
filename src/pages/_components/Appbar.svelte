@@ -19,7 +19,7 @@
         {#if currentUser === null}
             <a href={$url("../auth")}>Authentication</a>
         {:else}
-            <a href={$url("../profile/:profile", {profile: firebaseAuth.currentUser.displayName})}>Profile</a>
+            <a href={$url("../profile/:profile", {profile: firebaseAuth.currentUser.email})}>Profile</a>
         {/if}
         <a href="/">Create a new problem</a>
         <a href="/docs">Docs</a>

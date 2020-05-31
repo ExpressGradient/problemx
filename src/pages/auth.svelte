@@ -24,10 +24,10 @@
     const signUp = () => {
         if(signUpPassword === signUpConfirmPassword) {
             firebaseAuth.createUserWithEmailAndPassword(signUpEmail, signUpPassword).then((result) => {
-                createUserRecord(result.user, signUpUsername);
+                createUserRecord(result.user, { displayName: signUpUsername });
                 window.alert("ProblemX account created");
                 $goto("/");
-            });
+            }).catch((error) => console.log("Error in creating ProblemX account => ", error.message));
         } else {
             window.alert("Passwords do not match");
         }
@@ -35,12 +35,11 @@
 
     const signIn = () => {
         firebaseAuth.signInWithEmailAndPassword(signInEmail, signInPassword).then((result) => {
-            window.alert("ProblemX account created");
+            window.alert("ProblemX account signing in");
             $goto("/");
         }).catch(error => console.log(error.message));
     }
 </script>
-
 
 <div>
     <h1 on:click={() => $goto("/")}>ProblemX</h1>
