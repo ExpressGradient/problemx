@@ -54,6 +54,16 @@
     @media screen and (min-width: 760px) {
         .problem-card {
             width: 50%;
+            cursor: pointer;
+            transition: ease-in 300ms
+        }
+
+        .problem-card:hover {
+            width: 55%;
+        }
+
+        .problem-card:active {
+            width: 52%;
         }
     }
 </style>

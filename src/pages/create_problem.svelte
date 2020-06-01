@@ -1,13 +1,15 @@
 <script>
     import { goto } from "@sveltech/routify";
-    import { firebaseAuth, createFirestoreProblem, createUserProblem } from "./_firebase_utils";
+    import { firebaseAuth, createFirestoreProblem, createUserProblem, firestore } from "./_firebase_utils";
     import { tweened } from "svelte/motion";
     import { cubicOut } from "svelte/easing";
 
     let currentUser = null;
+    let displayName = "";
     firebaseAuth.onAuthStateChanged((firebaseUser) => {
         if(firebaseUser !== null) {
             currentUser = firebaseUser;
+            firestore.collection("users").doc(firebaseUser.uid).get().then((doc) => displayName = doc.data().displayName);
         } else {
             currentUser = null;
         }
@@ -23,7 +25,7 @@
     });
 
     const createProblem = () => {
-        createFirestoreProblem(title, description, categories.trim().split(","), $severity, firebaseAuth.currentUser.displayName).then((result) => {
+        createFirestoreProblem(title, description, categories.trim().split(","), $severity, displayName).then((result) => {
             if(result) {
                 window.alert("Problem successfully created");
                 createUserProblem(firebaseAuth.currentUser.uid, title, $severity);

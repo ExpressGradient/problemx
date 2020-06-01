@@ -27,7 +27,7 @@
 <div class="profile-card">
     <h1 on:click={() => $goto("/")}>ProblemX</h1>
     {#if currentUser !== null && userData !== null}
-        {#if currentUser.displayName === userData.displayName}
+        {#if currentUser.email === userData.email}
             <button on:click={signOut}>Sign Out</button>
         {/if}
     {/if}
