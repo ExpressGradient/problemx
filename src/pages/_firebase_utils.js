@@ -32,7 +32,7 @@ export const createUserRecord = async (firebaseUser, additionalUserInfo) => {
 
     if (!docSnapshot.exists) {
         const {displayName, email, phoneNumber, photoURL} = firebaseUser;
-        const createdAt = Date.now().toLocaleString();
+        const createdAt = Date().toString();
 
         try {
             await usersRef.set({
@@ -56,7 +56,7 @@ export const createFirestoreProblem = async (title, description, categories, sev
     const docSnapshot = problemsRef.get();
 
     if (!docSnapshot.exists) {
-        const createdAt = Date.now().toLocaleString();
+        const createdAt = Date().toString();
 
         try {
             await problemsRef.set({
