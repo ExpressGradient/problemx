@@ -23,16 +23,16 @@ export const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({"prompt": "select_account"});
 
 export const createUserRecord = async (firebaseUser, additionalUserInfo) => {
-    if(firebaseUser === null) {
+    if (firebaseUser === null) {
         return;
     }
 
     const usersRef = firestore.collection("users").doc(firebaseUser.uid);
     const docSnapshot = usersRef.get();
 
-    if(!docSnapshot.exists) {
-        const { displayName, email, phoneNumber, photoURL } = firebaseUser;
-        const createdAt = Date.now();
+    if (!docSnapshot.exists) {
+        const {displayName, email, phoneNumber, photoURL} = firebaseUser;
+        const createdAt = Date.now().toLocaleString();
 
         try {
             await usersRef.set({
@@ -40,15 +40,55 @@ export const createUserRecord = async (firebaseUser, additionalUserInfo) => {
                 email,
                 phoneNumber,
                 photoURL,
+                createdAt,
+                "problems": [],
                 ...additionalUserInfo
             });
             console.log("User data added to Firestore");
-        } catch(error) {
+        } catch (error) {
             console.log("Error in adding data to Firestore => ", error.message);
         }
     }
 }
 
-//TODO create a createProblem() for firestore
+export const createFirestoreProblem = async (title, description, categories, severity, creator, additionalProblemData) => {
+    const problemsRef = firestore.collection("problems").doc(title);
+    const docSnapshot = problemsRef.get();
+
+    if (!docSnapshot.exists) {
+        const createdAt = Date.now().toLocaleString();
+
+        try {
+            await problemsRef.set({
+                title,
+                description,
+                severity,
+                creator,
+                categories,
+                createdAt,
+                ...additionalProblemData
+            });
+            console.log("Problem created")
+        } catch (error) {
+            console.log("Error in creating problem => ", error.message);
+        }
+
+        return true;
+    } else {
+        return false;
+    }
+}
+
+export const createUserProblem = async (creator, title, severity) => {
+    const usersRef = firestore.collection("users").doc(creator);
+    try {
+        await usersRef.update({
+            "problems": firebase.firestore.FieldValue.arrayUnion({title, severity})
+        });
+        console.log("User problem created");
+    } catch (error) {
+        console.log("Error in creating user problem => ", error.message);
+    }
+}
 
 export default firebase;

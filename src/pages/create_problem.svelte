@@ -1,6 +1,6 @@
 <script>
     import { goto } from "@sveltech/routify";
-    import { firebaseAuth } from "./_firebase_utils";
+    import { firebaseAuth, createFirestoreProblem, createUserProblem } from "./_firebase_utils";
     import { tweened } from "svelte/motion";
     import { cubicOut } from "svelte/easing";
 
@@ -22,13 +22,27 @@
         easing: cubicOut
     });
 
-    const createProblem = () => {} //TODO complete this createProblem() by adding firestore
+    const createProblem = () => {
+        createFirestoreProblem(title, description, categories.trim().split(","), $severity, firebaseAuth.currentUser.displayName).then((result) => {
+            if(result) {
+                window.alert("Problem successfully created");
+                createUserProblem(firebaseAuth.currentUser.uid, title, $severity);
+                title = "";
+                description = "";
+                categories = "";
+                severity.set(0);
+                $goto("/");
+            } else {
+                window.alert("Problem already exists");
+            }
+        });
+    }
 </script>
 
 <div>
     <h1 on:click={() => $goto("/")}>ProblemX</h1>
     {#if currentUser !== null}
-        <form on:submit={createProblem}>
+        <form on:submit|preventDefault={createProblem}>
             <h2>Create a new problem</h2>
             <label>
                 Title

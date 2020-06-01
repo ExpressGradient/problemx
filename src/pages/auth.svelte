@@ -16,7 +16,6 @@
     const googleConnect = () => {
         firebaseAuth.signInWithPopup(provider).then((result) => {
             createUserRecord(result.user);
-            window.alert("Signing in...");
             $goto("/");
         }).catch(error => window.alert(error.message));
     }

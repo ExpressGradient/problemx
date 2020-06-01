@@ -12,14 +12,35 @@
         firebaseAuth.signOut();
         $goto("/");
     }
+
+    let currentUser = null;
+    firebaseAuth.onAuthStateChanged((firebaseUser) => {
+        if(firebaseUser != null) {
+            currentUser = firebaseUser;
+        } else {
+            currentUser = null;
+        }
+    });
+
 </script>
 
 <div class="profile-card">
     <h1 on:click={() => $goto("/")}>ProblemX</h1>
+    {#if currentUser !== null && userData !== null}
+        {#if currentUser.displayName === userData.displayName}
+            <button on:click={signOut}>Sign Out</button>
+        {/if}
+    {/if}
     {#if userData !== null}
         <h4>Username: {userData.displayName}</h4>
         <h4>Email: {userData.email}</h4>
-        <button on:click={signOut}>Sign Out</button>
+        <div class="problems-card">
+            <h2>Problems:</h2>
+            {#each userData.problems as problem}
+                <h3>{problem.title}</h3>
+                <progress value={problem.severity}></progress>
+            {/each}
+        </div>
     {/if}
 </div>
 
@@ -28,6 +49,10 @@
         text-align: center;
         color: #fff;
         font-size: 20px;
+    }
+
+    .problems-card {
+        margin-top: 20px;
     }
 
     h1 {
