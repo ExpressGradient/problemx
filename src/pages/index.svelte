@@ -2,6 +2,7 @@
     import Appbar from "./_components/Appbar.svelte";
     import CustomSearchForm from "./_components/CustomSearchForm.svelte";
     import { firestore } from "./_firebase_utils";
+    import { goto } from "@sveltech/routify";
 
     let problems = [];
     $: problems.sort((a, b) => (b.severity - a.severity));
@@ -24,7 +25,7 @@
 <div class="problems-list">
     <h2>Top Problems</h2>
     {#each problems as problem}
-        <div class="problem-card">
+        <div class="problem-card" on:click={() => $goto("/problem/:problem", {problem: problem.title})}>
             <h2>{problem.title}</h2>
             <progress value={problem.severity}></progress>
             <p>{problem.description}</p>

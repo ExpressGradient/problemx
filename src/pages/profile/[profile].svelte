@@ -56,14 +56,12 @@
     }
 
     h1 {
-        text-align: center;
-        color: #fff;
         cursor: pointer;
+        transition: ease-in 300ms;
     }
 
     h1:hover {
         font-size: 55px;
-        transition: ease-in 300ms;
     }
 
     h1:active {

@@ -91,4 +91,28 @@ export const createUserProblem = async (creator, title, severity) => {
     }
 }
 
+export const solveProblem = async (solverUID, title) => {
+    const problemsRef = firestore.collection("problems").doc(title);
+    try {
+        await problemsRef.update({
+            "solvers": firebase.firestore.FieldValue.arrayUnion(solverUID)
+        });
+        console.log("Solution Created");
+    } catch (error) {
+        console.log("Error in solving problem => ", error.message);
+    }
+}
+
+export const solveUserProblem = async (solverUID, title) => {
+    const usersRef = firestore.collection("users").doc(solverUID);
+    try {
+        await usersRef.update({
+            "solving": firebase.firestore.FieldValue.arrayUnion(title)
+        });
+        console.log("User Solution Created");
+    } catch(error) {
+        console.log("Error in solving user problem => ", error.message);
+    }
+}
+
 export default firebase;
