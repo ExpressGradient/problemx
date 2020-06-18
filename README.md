@@ -1,5 +1,7 @@
 # **ProblemX**
 
+EDIT: Yay, I've got second runner up!!!  :blush::blush:
+
 The site is hosted on vercel now, here's the link -> [problemx website](https://problemx.expressgradient.now.sh)
 
 ProblemX is a website for looking up the current problems that exist. For example, a user can look up for current problems on technology by visting the particular category and see the list of problems open/closed. The user can also see the organizations/companies/individuals working on particular problem and can collaborate with them upon the user likes. Apart from this, the org's To-do list for solving the problem is displayed public, the user can see the progress and finished tasks of the org.
